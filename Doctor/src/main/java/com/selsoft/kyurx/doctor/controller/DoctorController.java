@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.selsoft.kyurx.doctor.service.DoctorService;
+import com.selsoft.kyurx.exception.DoctorException;
+import com.selsoft.kyurx.models.Doctor;
 import com.selsoft.kyurx.utils.JWTValidationUtils;
 
 @RestController
@@ -23,7 +25,7 @@ public class DoctorController {
 	
 	@RequestMapping(value = "/addDiceAccount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String addClient(HttpServletRequest request, HttpServletResponse httpResponse,
-			@RequestBody DiceInfo diceInfo) {
+			@RequestBody Doctor doctor) {
 
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -34,11 +36,11 @@ public class DoctorController {
 				httpResponse.setHeader(JWTValidationUtils.REFRESH_TOKEN, getJWTResfreshToken(request));
 			}
 
-			diceService.addDiceAccount(diceInfo);
 
+			doctor = doctorService.addNewDoctor(doctor);
 			jsonObject.put("success", true);
-			jsonObject.put("diceInfo", diceInfo.toJSON());
-		} catch (DiceException e) {
+			jsonObject.put("doctor", doctor.toJSON());
+		} catch (DoctorException e) {
 			jsonObject.put("success", false);
 			jsonObject.put("message", e.toString());
 		} catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.selsoft.kyurx.docotr.filter;
+package com.selsoft.kyurx.doctor.filter;
 
 import java.io.IOException;
 

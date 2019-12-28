@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.selsoft.kyurx.user.mapper.UserMapper">
+
+	<select id="findUserByEmail" parameterType="java.lang.String"
+		resultType="com.selsoft.kyurx.models.User">
+		SELECT * FROM RX_USER WHERE emailId = #{email}
+	</select>
+
+	<insert id="insertUserWithRole"
+		parameterType="com.selsoft.kyurx.models.User" useGeneratedKeys="true"
+		keyProperty="userId" keyColumn="userId">
+		INSERT INTO RX_USER
+		(
+		userRole,
+		firstName,
+		lastName,
+		emailId,
+		userName,
+		phoneNumber)
+		VALUES
+		(
+		#{userRole},
+		#{firstName},
+		#{lastName},
+		#{emailId},
+		#{userName},
+		#{phoneNumber})
+	</insert>
+
+</mapper>

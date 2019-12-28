@@ -1,11 +1,11 @@
 package com.selsoft.kyurx.doctor.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.selsoft.kyurx.doctor.mapper.DoctorMapper;
-import com.selsoft.kyurx.models.Doctor;
-import com.selsoft.kyurx.models.UserRole;
+import com.selsoft.kyurx.models.User;
 
 @Service("doctorService")
 public class DoctorServiceImpl implements DoctorService {
@@ -13,16 +13,13 @@ public class DoctorServiceImpl implements DoctorService {
 	@Autowired
 	private DoctorMapper doctorMapper;
 
-	@Override
-	public Doctor addNewDoctor(Doctor doctor) throws Throwable {
-		UserRole userRole = new UserRole();
-		userRole.setEmailId(doctor.getEmailId());
-		userRole.setRole("DOCTOR");
-		doctorMapper.insertUserRole(userRole);
+	private static final Logger logger = Logger.getLogger(DoctorServiceImpl.class);
 
-		doctor.setRoleId(userRole.getUserRoleId());
-		doctorMapper.insertDoctor(doctor);
-		return doctor;
+	@Override
+	public void addUserWithRole(User user, String activationUrl) throws Throwable {
+		
+		
+
 	}
 
 }

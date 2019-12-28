@@ -3,7 +3,7 @@ package com.selsoft.kyurx.exception;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
-public class BaseException extends Throwable {
+public class KyuRxException extends Throwable {
 
 	/**
 	 * 
@@ -12,7 +12,6 @@ public class BaseException extends Throwable {
 
 	private String errorType;
 	private String message;
-	private int statusCode;
 
 	public String getErrorType() {
 		return errorType;
@@ -30,29 +29,18 @@ public class BaseException extends Throwable {
 		this.message = message;
 	}
 
-	public int getStatusCode() {
-		return statusCode;
+	public KyuRxException() {
 	}
 
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	public BaseException() {
-	}
-
-	public BaseException(String errorType, String message, String developerMessage, int statusCode) {
+	public KyuRxException(String errorType, String message) {
 		this.errorType = errorType;
 		this.message = message;
-		this.statusCode = statusCode;
 	}
 
 	public JSONObject toJSON() {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("success", false);
-		if (this.statusCode > 0) {
-			jsonObject.put("statusCode", this.statusCode);
-		}
+
 		if (StringUtils.isNotBlank(errorType)) {
 			jsonObject.put("errorType", this.errorType);
 		}
